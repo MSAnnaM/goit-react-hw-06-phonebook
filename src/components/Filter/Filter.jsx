@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../../redux/filterSlice';
 import { selectFilter } from '../../redux/selectors';
-import styles from './Filter.module.css';
+import { Search } from './Filter.styled';
 
 export const Filter = () => {
   const dispatch = useDispatch();
@@ -13,8 +13,7 @@ export const Filter = () => {
   };
 
   return (
-    <input
-      className={styles.filter_input}
+    <Search
       type="text"
       placeholder="Search contacts"
       value={filter}

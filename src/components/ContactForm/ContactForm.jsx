@@ -2,23 +2,22 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../redux/contactSlice';
 import { nanoid } from '@reduxjs/toolkit';
-import styles from './ContactForm.module.css';
+import { Form, Input, Button } from './ContactForm.styled';
 import Notiflix from 'notiflix';
 import { selectContacts } from '../../redux/selectors';
 
-
 export const ContactForm = () => {
-  const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
+  const dispatch = useDispatch();
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const handleInputChange = e => {
-    const { name, value } = e.currentTarget;
-    if (name === 'name') {
-      setName(value);
-    } else if (name === 'number') {
-      setNumber(value);
+  const handleInputChange = ({ target }) => {
+    if (target.name === 'name') {
+      setName(target.value);
+    } else if (target.name === 'number') {
+      setNumber(target.value);
     }
   };
 
@@ -28,22 +27,35 @@ export const ContactForm = () => {
       Notiflix.Notify.warning('Please write your name and number');
       return;
     }
-    const isDuplicate = contacts.some(contact => contact.name.toLowerCase() === name.toLowerCase());
+    const isDuplicate = contacts.some(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
 
     if (isDuplicate) {
       Notiflix.Notify.warning(`${name} is already in the contacts.`);
       return;
     }
-    dispatch(addContact({ id: nanoid(), name, number }));
+    addNewContact({ name, number });
     setName('');
     setNumber('');
   };
 
+  const addNewContact = ({ name, number }) => {
+    const newContact = [
+      ...contacts,
+      {
+        id: nanoid(),
+        name,
+        number,
+      },
+    ];
+    dispatch(addContact(newContact));
+  };
+
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <Form onSubmit={handleSubmit}>
       <label>
-        <input
-          className={styles.form_input}
+        <Input
           type="text"
           name="name"
           placeholder="Name:"
@@ -52,8 +64,7 @@ export const ContactForm = () => {
         />
       </label>
       <label>
-        <input
-          className={styles.form_input}
+        <Input
           type="tel"
           name="number"
           placeholder="Number:"
@@ -62,9 +73,7 @@ export const ContactForm = () => {
           onChange={handleInputChange}
         />
       </label>
-      <button type="submit" className={styles.form_btn}>
-        Add Contact
-      </button>
-    </form>
+      <Button type="submit">Add Contact</Button>
+    </Form>
   );
 };

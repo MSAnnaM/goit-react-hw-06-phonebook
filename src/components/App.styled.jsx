@@ -1,23 +1,18 @@
-ul {
-  list-style: none;
-}
-.container {
+import styled from 'styled-components';
+
+export const AppContainer = styled.div`
   text-align: center;
   padding: 20px;
   border: 1px solid #ff0359;
   background-color: #fcdce7;
   max-width: 600px;
   margin: 0 auto;
-}
-.title {
+`;
+export const Title = styled.h1`
   color: #333333;
-}
-.contacts {
+`;
+
+export const Subtitle = styled.h3`
   color: #333333;
   text-align: left;
-}
-.no_contacts {
-  color: #360102;
-  font-size: 14px;
-  text-align: left;
-}
+`;

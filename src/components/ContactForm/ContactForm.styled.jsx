@@ -1,9 +1,11 @@
-.form {
-  margin-bottom: 10px;
-}
+import styled from 'styled-components';
 
-.form_input {
-  display: block;
+export const Form = styled.form`
+ margin-bottom: 10px;
+`;
+
+export const Input = styled.input`
+   display: block;
   width: 100%;
   padding: 8px;
   margin-bottom: 8px;
@@ -12,11 +14,14 @@
   background-color: #ffe6e6;
   color: #a85353;
   transition: border-color 0.3s ease-in-out;
-}
-.form_input:hover {
-  border-color: #ff7f50;
-}
-.form_btn {
+
+  &:hover {
+   background-color: #ff7f50;
+  color: #ffffff;
+  }
+`;
+
+export const Button = styled.button`
   display: block;
   margin: 0 auto;
   width: 90%;
@@ -27,8 +32,9 @@
   color: #7d5d5d;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-}
-.form_btn:hover {
-  background-color: #ff7f50;
+
+  &:hover {
+    background-color: #ff7f50;
   color: #ffffff;
-}
+  }
+`;
